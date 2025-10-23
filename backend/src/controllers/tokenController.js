@@ -103,7 +103,11 @@ class TokenController {
         return res.status(400).json({ error: 'Insufficient balance' });
       }
 
-      // Validate Ethereum address format
+      // Validate Ethereum address format and ensure it's a string
+      if (typeof toAddress !== 'string') {
+        return res.status(400).json({ error: 'Invalid wallet address' });
+      }
+      
       const addressRegex = /^0x[a-fA-F0-9]{40}$/;
       if (!addressRegex.test(toAddress)) {
         return res.status(400).json({ error: 'Invalid wallet address' });
@@ -116,7 +120,7 @@ class TokenController {
         amount: transferAmount,
         tokenSymbol: 'QCN',
         fromAddress: user.walletAddress,
-        toAddress: toAddress,
+        toAddress: String(toAddress).toLowerCase(), // Normalize to lowercase
         status: 'pending'
       });
 
@@ -126,8 +130,11 @@ class TokenController {
       user.tokenBalance -= transferAmount;
       await user.save();
 
-      // Update recipient if they exist - use exact match
-      const recipient = await User.findOne({ walletAddress: toAddress });
+      // Update recipient if they exist - use exact match with normalized address
+      const normalizedAddress = String(toAddress).toLowerCase();
+      const recipient = await User.findOne({ 
+        walletAddress: { $eq: normalizedAddress } // Use $eq operator for exact match
+      });
       if (recipient) {
         recipient.tokenBalance += transferAmount;
         await recipient.save();

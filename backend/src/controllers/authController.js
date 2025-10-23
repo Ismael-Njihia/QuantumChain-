@@ -91,9 +91,14 @@ class AuthController {
 
       const { email, password } = req.body;
 
-      // Validate email format to prevent injection
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
+      // Validate email format to prevent injection - using simpler regex
+      if (!email || typeof email !== 'string' || email.length > 254) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+      
+      // Simple email validation to prevent ReDoS
+      const emailParts = email.split('@');
+      if (emailParts.length !== 2 || !emailParts[0] || !emailParts[1] || !emailParts[1].includes('.')) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }
 
