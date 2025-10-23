@@ -16,7 +16,12 @@ exports.register = async (req, res) => {
     const { email, password, anonymousWallet = true } = req.body;
 
     // Validate input
-    if (!email || typeof email !== 'string' || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    if (!email || typeof email !== 'string') {
+      return res.status(400).json({ error: { message: 'Invalid email format' } });
+    }
+    // Simple but safe email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
       return res.status(400).json({ error: { message: 'Invalid email format' } });
     }
     if (!password || typeof password !== 'string' || password.length < 6) {
