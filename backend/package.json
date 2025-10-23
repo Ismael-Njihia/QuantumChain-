@@ -8,7 +8,11 @@
     "dev": "nodemon src/server.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": ["blockchain", "quantum", "cryptocurrency"],
+  "keywords": [
+    "blockchain",
+    "quantum",
+    "cryptocurrency"
+  ],
   "author": "QuantumChain Team",
   "license": "MIT",
   "dependencies": {
@@ -21,6 +25,7 @@
     "ipfs-http-client": "^60.0.1",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
     "nodemailer": "^6.9.7"
   }
 }

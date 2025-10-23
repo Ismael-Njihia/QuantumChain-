@@ -102,4 +102,6 @@ class Web3Service {
   }
 }
 
-export default new Web3Service();
+const web3ServiceInstance = new Web3Service();
+
+export default web3ServiceInstance;

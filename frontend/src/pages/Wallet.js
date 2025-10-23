@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { tokenAPI } from '../services/api';
-import web3Service from '../services/web3Service';
 import './Wallet.css';
 
 function Wallet() {
@@ -16,7 +15,7 @@ function Wallet() {
     setMessage('');
 
     try {
-      const response = await tokenAPI.purchase({
+      await tokenAPI.purchase({
         amount: purchaseAmount,
         paymentMethod: 'eth'
       });
