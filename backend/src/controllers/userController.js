@@ -15,8 +15,17 @@ exports.register = async (req, res) => {
   try {
     const { email, password, anonymousWallet = true } = req.body;
 
-    // Check if user exists
-    const existingUser = await User.findOne({ email });
+    // Validate input
+    if (!email || typeof email !== 'string' || !email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      return res.status(400).json({ error: { message: 'Invalid email format' } });
+    }
+    if (!password || typeof password !== 'string' || password.length < 6) {
+      return res.status(400).json({ error: { message: 'Password must be at least 6 characters' } });
+    }
+
+    // Check if user exists - sanitize email
+    const sanitizedEmail = email.toLowerCase().trim();
+    const existingUser = await User.findOne({ email: sanitizedEmail });
     if (existingUser) {
       return res.status(400).json({ error: { message: 'User already exists' } });
     }
@@ -26,7 +35,7 @@ exports.register = async (req, res) => {
 
     // Create user
     const user = new User({
-      email,
+      email: sanitizedEmail,
       password,
       walletAddress: walletData.address,
       anonymousWallet,
@@ -68,8 +77,14 @@ exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user
-    const user = await User.findOne({ email });
+    // Validate input
+    if (!email || typeof email !== 'string' || !password || typeof password !== 'string') {
+      return res.status(400).json({ error: { message: 'Invalid credentials' } });
+    }
+
+    // Find user - sanitize email
+    const sanitizedEmail = email.toLowerCase().trim();
+    const user = await User.findOne({ email: sanitizedEmail });
     if (!user) {
       return res.status(401).json({ error: { message: 'Invalid credentials' } });
     }

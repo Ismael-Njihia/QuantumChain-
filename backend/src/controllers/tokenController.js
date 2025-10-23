@@ -141,6 +141,14 @@ exports.transferTokens = async (req, res) => {
     const { to, amount } = req.body;
     const userId = req.user.userId;
 
+    // Validate inputs
+    if (!to || typeof to !== 'string' || !to.match(/^0x[a-fA-F0-9]{40}$/)) {
+      return res.status(400).json({ error: { message: 'Invalid recipient address' } });
+    }
+    if (!amount || typeof amount !== 'number' || amount <= 0) {
+      return res.status(400).json({ error: { message: 'Invalid amount' } });
+    }
+
     // Get sender
     const sender = await User.findById(userId);
     if (!sender) {
@@ -171,8 +179,9 @@ exports.transferTokens = async (req, res) => {
     sender.tokenBalance -= amount;
     await sender.save();
 
-    // Update receiver balance if exists
-    const receiver = await User.findOne({ walletAddress: to });
+    // Update receiver balance if exists - sanitize the address
+    const sanitizedAddress = to.toLowerCase();
+    const receiver = await User.findOne({ walletAddress: sanitizedAddress });
     if (receiver) {
       receiver.tokenBalance += amount;
       await receiver.save();

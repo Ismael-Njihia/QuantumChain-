@@ -58,9 +58,23 @@ exports.getOrders = async (req, res) => {
     const { status, orderType } = req.query;
     const userId = req.user.userId;
 
+    // Validate query parameters
+    const validStatuses = ['open', 'filled', 'cancelled', 'partial'];
+    const validOrderTypes = ['buy', 'sell'];
+    
     const filter = { user: userId };
-    if (status) filter.status = status;
-    if (orderType) filter.orderType = orderType;
+    if (status) {
+      if (!validStatuses.includes(status)) {
+        return res.status(400).json({ error: { message: 'Invalid status' } });
+      }
+      filter.status = status;
+    }
+    if (orderType) {
+      if (!validOrderTypes.includes(orderType)) {
+        return res.status(400).json({ error: { message: 'Invalid order type' } });
+      }
+      filter.orderType = orderType;
+    }
 
     const orders = await Order.find(filter).sort({ createdAt: -1 });
 
@@ -78,6 +92,12 @@ exports.getOrders = async (req, res) => {
 exports.getOrderBook = async (req, res) => {
   try {
     const { tokenPair = 'QCN/ETH' } = req.query;
+
+    // Validate tokenPair
+    const validPairs = ['QCN/ETH', 'QCN/USDT', 'QCN/BTC'];
+    if (!validPairs.includes(tokenPair)) {
+      return res.status(400).json({ error: { message: 'Invalid token pair' } });
+    }
 
     const buyOrders = await Order.find({
       tokenPair,
