@@ -1,0 +1,85 @@
+.whitepaper {
+  padding: 40px 20px;
+}
+
+.whitepaper h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 36px;
+}
+
+.download-section {
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 50px;
+  margin-bottom: 40px;
+}
+
+.download-section h2 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+.download-section p {
+  color: white;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.whitepaper h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.whitepaper h3 {
+  color: #667eea;
+  margin: 25px 0 15px;
+  font-size: 20px;
+}
+
+.whitepaper p {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+
+.whitepaper ul {
+  color: #666;
+  line-height: 2;
+  padding-left: 25px;
+}
+
+.whitepaper ul li {
+  margin-bottom: 10px;
+}
+
+.roadmap-list {
+  margin-top: 20px;
+}
+
+.roadmap-item {
+  padding: 15px;
+  border-left: 3px solid #667eea;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+  color: #666;
+  line-height: 1.6;
+}
+
+.roadmap-item strong {
+  color: #667eea;
+  margin-right: 10px;
+}
+
+.disclaimer {
+  background: #fff3cd;
+  padding: 20px;
+  border-left: 4px solid #ffc107;
+  border-radius: 5px;
+  color: #856404;
+  font-size: 14px;
+  line-height: 1.8;
+}

@@ -1,0 +1,148 @@
+.dex {
+  padding: 40px 20px;
+}
+
+.dex h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 36px;
+}
+
+.subtitle {
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.dex-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.swap-card {
+  max-width: 500px;
+}
+
+.token-input {
+  margin-bottom: 20px;
+}
+
+.token-input label {
+  display: block;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+.input-group input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.input-group select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  cursor: pointer;
+}
+
+.switch-btn {
+  background: #f5f5f5;
+  color: #667eea;
+  border: 2px solid #667eea;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 24px;
+  margin: 10px auto;
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.switch-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: rotate(180deg);
+}
+
+.swap-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.dex-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-row .value {
+  font-weight: bold;
+  color: #667eea;
+}
+
+.trade-list {
+  margin-top: 15px;
+}
+
+.trade-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.trade-item:last-child {
+  border-bottom: none;
+}
+
+.trade-item .amount {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  background: #d4edda;
+  color: #155724;
+  border-radius: 5px;
+  text-align: center;
+}
+
+@media (max-width: 968px) {
+  .dex-container {
+    grid-template-columns: 1fr;
+  }
+
+  .swap-card {
+    max-width: 100%;
+  }
+}
