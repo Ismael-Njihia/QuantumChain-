@@ -1,0 +1,20 @@
+{
+  "name": "quantumchain-blockchain",
+  "version": "1.0.0",
+  "description": "QuantumChain Smart Contracts - ERC-20 QCN Token and DEX",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js"
+  },
+  "keywords": ["blockchain", "ethereum", "smart-contracts"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.4"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.1"
+  }
+}
