@@ -91,8 +91,14 @@ class AuthController {
 
       const { email, password } = req.body;
 
-      // Find user
-      const user = await User.findOne({ email });
+      // Validate email format to prevent injection
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return res.status(401).json({ error: 'Invalid credentials' });
+      }
+
+      // Find user with exact match only
+      const user = await User.findOne({ email: email.toLowerCase() });
       if (!user) {
         return res.status(401).json({ error: 'Invalid credentials' });
       }

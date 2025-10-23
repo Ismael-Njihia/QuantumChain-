@@ -103,6 +103,12 @@ class TokenController {
         return res.status(400).json({ error: 'Insufficient balance' });
       }
 
+      // Validate Ethereum address format
+      const addressRegex = /^0x[a-fA-F0-9]{40}$/;
+      if (!addressRegex.test(toAddress)) {
+        return res.status(400).json({ error: 'Invalid wallet address' });
+      }
+
       // Create transaction record
       const transaction = new Transaction({
         user: user._id,
@@ -110,7 +116,7 @@ class TokenController {
         amount: transferAmount,
         tokenSymbol: 'QCN',
         fromAddress: user.walletAddress,
-        toAddress,
+        toAddress: toAddress,
         status: 'pending'
       });
 
@@ -120,7 +126,7 @@ class TokenController {
       user.tokenBalance -= transferAmount;
       await user.save();
 
-      // Update recipient if they exist
+      // Update recipient if they exist - use exact match
       const recipient = await User.findOne({ walletAddress: toAddress });
       if (recipient) {
         recipient.tokenBalance += transferAmount;
